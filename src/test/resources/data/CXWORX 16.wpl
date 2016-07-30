@@ -1,0 +1,18 @@
+<?wpl version="1.0"?>
+<smil>
+    <head>
+        <meta name="Generator" content="Microsoft Windows Media Player -- 12.0.7601.18526"/>
+        <meta name="ItemCount" content="0"/>
+        <author/>
+        <title>CXWORX 16</title>
+    </head>
+    <body>
+        <seq>
+            <media src="Track 2 - Lets Get Ridiculous.mp3" tid="{70D17B7F-4D7A-4019-9CFB-068574F9B782}"/>
+            <media src="Track 3 - Keep Your Hands Off My Girl.mp3" cid="{5FF6BAE0-F417-4FA2-879B-09BA57D9425F}" tid="{C9553308-BC40-4BBE-86E9-6519683907F3}"/>
+            <media src="Track 4 - Turn Down for What.mp3" tid="{B609DD82-6B34-4855-BA33-47D84C846435}"/>
+            <media src="Track 5 - Revolution.mp3" tid="{3BD1E4B2-78D9-4410-BC70-9A92F762917F}"/>
+            <media src="Track 6 - Take Me Home.mp3" tid="{21461479-AA47-45D1-958D-A49523A3CB13}"/>
+        </seq>
+    </body>
+</smil>
