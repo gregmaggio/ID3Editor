@@ -279,6 +279,8 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 					return false;
 				if (columnName.compareToIgnoreCase("HasBackup") == 0)
 					return false;
+				if (columnName.compareToIgnoreCase("Dirty") == 0)
+					return false;
 				return true;
 			}
             @Override
@@ -288,7 +290,6 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 		};
 		_mp3Table = new JTable(_dataModel);
 		_mp3Table.getColumn("ID3 Version").setCellEditor(new ID3TableCellEditor());
-		_mp3Table.removeColumn(_mp3Table.getColumn("Dirty"));
 		_mp3Table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		_mp3Table.setColumnSelectionAllowed(true);
 		_mp3Table.setRowSelectionAllowed(true);
@@ -298,7 +299,9 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TableCellListener tcl = (TableCellListener)e.getSource();
-				_dataModel.setValueAt(Boolean.TRUE, tcl.getRow(), _columnIndexes.get("Dirty"));
+				if (tcl.getOldValue() != tcl.getNewValue()) {
+					_dataModel.setValueAt(Boolean.TRUE, tcl.getRow(), _columnIndexes.get("Dirty"));
+				}
 			}
 		});
 		
@@ -480,27 +483,34 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 			}
 		} catch (Throwable t) {
 			_logger.error("Exception", t);
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	private void saveAllMenuItemActionPerformed(ActionEvent event) {
-		(new Thread(new Runnable() {
-			@Override
-			public void run() {
-				saveFiles();
-			}
-		})).start();
+		try {
+			(new Thread(new Runnable() {
+				@Override
+				public void run() {
+					saveFiles();
+				}
+			})).start();
+		} catch (Throwable t) {
+			_logger.error("Exception", t);
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	private void propertiesMenuItemActionPerformed(ActionEvent event) {
-		PreferencesDialog preferencesDialog = new PreferencesDialog(_frame);
-		if (preferencesDialog.showDialog(_preferences)) {
-			loadFiles();
-			try {
+		try {
+			PreferencesDialog preferencesDialog = new PreferencesDialog(_frame);
+			if (preferencesDialog.showDialog(_preferences)) {
+				loadFiles();
 				_preferences.save();
-			} catch (Throwable t) {
-				_logger.error("Exception", t);
 			}
+		} catch (Throwable t) {
+			_logger.error("Exception", t);
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -524,6 +534,7 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 			}
 		} catch (Throwable t) {
 			_logger.warn("Exception", t);
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -534,6 +545,7 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 			}
 		} catch (Throwable t) {
 			_logger.error("Exception", t);
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -556,6 +568,7 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 			}
 		} catch (Throwable t) {
 			_logger.error("Exception", t);
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -577,6 +590,7 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 			}
 		} catch (Throwable t) {
 			_logger.error("Exception", t);
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -611,6 +625,7 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 			}
 		} catch (Throwable t) {
 			_logger.error("Exception", t);
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -627,6 +642,7 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 			}
 		} catch (Throwable t) {
 			_logger.error("Exception", t);
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

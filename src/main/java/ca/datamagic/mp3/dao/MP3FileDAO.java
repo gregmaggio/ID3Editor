@@ -69,19 +69,17 @@ public class MP3FileDAO {
 	public void saveFile(MP3FileDTO mp3File, String id3Version) throws Exception {
 		backupFile(mp3File);
 		AudioFile audioFile = AudioFileIO.read(mp3File.getFile());
-		if (audioFile.getTag() != null) {
-			if (id3Version.compareToIgnoreCase("v1.0") == 0) {
-				audioFile.setTag(mp3File.getID3Tag().toID3v1Tag());
-			} else if (id3Version.compareToIgnoreCase("v1.1") == 0) {
-				audioFile.setTag(mp3File.getID3Tag().toID3v11Tag());
-			} else if (id3Version.compareToIgnoreCase("v2.2") == 0) {
-				audioFile.setTag(mp3File.getID3Tag().toID3v22Tag());
-			} else if (id3Version.compareToIgnoreCase("v2.3") == 0) {
-				audioFile.setTag(mp3File.getID3Tag().toID3v23Tag());
-			} else if (id3Version.compareToIgnoreCase("v2.4") == 0) {
-				audioFile.setTag(mp3File.getID3Tag().toID3v24Tag());
-			}
-			AudioFileIO.write(audioFile);
+		if (id3Version.compareToIgnoreCase("v1.0") == 0) {
+			audioFile.setTag(mp3File.getID3Tag().toID3v1Tag());
+		} else if (id3Version.compareToIgnoreCase("v1.1") == 0) {
+			audioFile.setTag(mp3File.getID3Tag().toID3v11Tag());
+		} else if (id3Version.compareToIgnoreCase("v2.2") == 0) {
+			audioFile.setTag(mp3File.getID3Tag().toID3v22Tag());
+		} else if (id3Version.compareToIgnoreCase("v2.3") == 0) {
+			audioFile.setTag(mp3File.getID3Tag().toID3v23Tag());
+		} else if (id3Version.compareToIgnoreCase("v2.4") == 0) {
+			audioFile.setTag(mp3File.getID3Tag().toID3v24Tag());
 		}
+		AudioFileIO.write(audioFile);
 	}
 }
