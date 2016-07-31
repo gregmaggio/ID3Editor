@@ -72,7 +72,7 @@ public class Editor extends JApplet implements MusicPlayerEvents {
 		"HasBackup",
 		"Dirty"
 	};
-	private static SimpleDateFormat _dateTimeFormat = new SimpleDateFormat("y-M-d H:m:s");
+	private static SimpleDateFormat _dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static JFrame _frame = null; 
 	private MP3FileDAO _dao = null;
 	private Preferences _preferences = null;
